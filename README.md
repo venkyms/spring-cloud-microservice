@@ -2,8 +2,10 @@
 - git-local-config-repo
     - stores/holds all configurations/properties for different environment 
 - spring-cloud-config-repo
+    - server port - 8888
     - loads all configuration/properties from git-local-config-repo
-- limits-service
+- limits-service (exposed service)
+    - on default port 8080
     - service which will connect to spring-cloud-config-repo to fetch properties for corresponding environment.
     - spring-cloud-config-repo internally connects to git-local-config-repo to load property
     - remove default values set in application.properties
