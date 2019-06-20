@@ -1,1 +1,13 @@
 # spring-cloud-microservice
+- git-local-config-repo
+    - stores/holds all configurations/properties for different environment 
+- spring-cloud-config-repo
+    - loads all configuration/properties from git-local-config-repo
+- limits-service
+    - service which will connect to spring-cloud-config-repo to fetch properties for corresponding environment.
+    - spring-cloud-config-repo internally connects to git-local-config-repo to load property
+    - remove default values set in application.properties
+    - rename application.properties to different name so there is no default value loaded from this application.properties, instead values are loaded by config-server
+        - configure spring.cloud.config.uri in properties file
+        - spring.application.name should match the properties file name in git-local-config-repo
+    - http://localhost:8080/limits/ will show the default values from limits-service.properties
