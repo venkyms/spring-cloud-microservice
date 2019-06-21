@@ -17,3 +17,6 @@
     - configure profiles (dev/sandbox/int/stage/prod)
         - for example change the properties in your service module spring.profiles.active=dev
         - can be parameterized using vm arg 
+- Currency-exchange-service
+    - Contains exchange values
+    - server port - 8000
