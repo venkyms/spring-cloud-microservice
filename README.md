@@ -1,6 +1,7 @@
 # spring-cloud-microservice
 - git-local-config-repo
     - stores/holds all configurations/properties for different environment 
+    - create the configuration in this module and make it as local git repo and commit all the changes. or the config-repo will not load the change in properties
 - spring-cloud-config-repo
     - server port - 8888
     - loads all configuration/properties from git-local-config-repo
@@ -13,3 +14,6 @@
         - configure spring.cloud.config.uri in properties file
         - spring.application.name should match the properties file name in git-local-config-repo
     - http://localhost:8080/limits/ will show the default values from limits-service.properties
+    - configure profiles (dev/sandbox/int/stage/prod)
+        - for example change the properties in your service module spring.profiles.active=dev
+        - can be parameterized using vm arg 
