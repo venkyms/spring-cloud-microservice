@@ -20,3 +20,16 @@
 - Currency-exchange-service
     - Contains exchange values
     - server port - 8000
+    - Use Environment Interface from spring evn package to access environment properties
+        - for example environment.getProperty("local.server.port")
+    - dynamic vm args can be passed for server.port
+        - for example vm args while starting the application "-Dserver.port=8000"
+    - JPA
+        - include spring-starter-data, and h2db
+        - convert ExchangeValue to entity
+        - create data.sql file in resource and feed the default values in the h2db
+        - spring.jpa.show-sql=true  
+        - spring.h2.console.enabled=true 
+        - access h2-console via http://localhost:8000/h2-console
+        - create a repository class to send the correct response by extending JpaRepository Interface
+        - Spring data jpa has lot of implementation built-in for example findby**
