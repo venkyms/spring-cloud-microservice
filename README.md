@@ -33,3 +33,6 @@
         - access h2-console via http://localhost:8000/h2-console
         - create a repository class to send the correct response by extending JpaRepository Interface
         - Spring data jpa has lot of implementation built-in for example findby**
+- Currency-conversion-service
+    - Integrates currency-exchange-service
+    - server port - 8100       
