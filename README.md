@@ -34,5 +34,14 @@
         - create a repository class to send the correct response by extending JpaRepository Interface
         - Spring data jpa has lot of implementation built-in for example findby**
 - Currency-conversion-service
-    - Integrates currency-exchange-service
-    - server port - 8100       
+    - Integrates currency-exchange-service using RestTemplate (refer CurrencyConversionController)
+    - server port - 8100
+    - Fiegn(rest service client) to invoke rest service, provides ribbon client side load balancing (Netflix OpenSource)
+        - spring-cloud-starter-openfeign artifact in pom
+        - enable feign in application class with annotation @EnableFeignClients("com.venkyms.microservices.currencyconversionservice")
+        - create fiegn proxy to integrate external service CurrencyExchangeServiceProxy
+    - Ribbon - loadbalancing
+        - spring-cloud-starter-netflix-ribbon artifact in pom
+        - Enable ribbon on proxy class
+        - @RibbonClient(name = "currency-exchange-service") , once ribbon client is enabled url is not required in Feign. instead define ribbon.listOfServers for load balancing
+         
