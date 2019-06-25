@@ -44,4 +44,12 @@
         - spring-cloud-starter-netflix-ribbon artifact in pom
         - Enable ribbon on proxy class
         - @RibbonClient(name = "currency-exchange-service") , once ribbon client is enabled url is not required in Feign. instead define ribbon.listOfServers for load balancing
+        - In this case we hardcode the list of exchange-service in application.properties for ribbon, to avoid this naming servers should be used
+    - Eureka - Naming server
+        - Used for service registration and service discovery
+        - Every time a microservice boots up it will register with naming server
+        - While client is consuming the service they discover the service using naming server
+        - include artifact spring-cloud-starter-netflix-eureka-server in pom
+        - Enable Eurekaserver with annotation in application class @EnableEurekaServer
+        - http://localhost:8761/ 
          
