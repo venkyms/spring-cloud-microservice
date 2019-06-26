@@ -52,4 +52,13 @@
         - include artifact spring-cloud-starter-netflix-eureka-server in pom
         - Enable Eurekaserver with annotation in application class @EnableEurekaServer
         - http://localhost:8761/ 
-         
+    - Integrate Eureka Naming server in currency-conversion-service
+        - spring-cloud-starter-netflix-eureka-client artifact in the pom
+        - in application class @EnableDiscoveryClient to enable name registration
+        - add to application.properties 
+            - eureka.client.service-url.default-zone=http://localhost:8761/eureka
+        - start the server and look for registered service in eureka page
+    - Integrate Eureka Naming server in Currency-exchange-service, limits-service
+        - steps are similar to above one
+    - Next step remove the hard coding of ribbon server list from properties file and try using naming server
+        - remove the hard coding of server and eureka.client.service-url.default-zone should take care of load balancing
