@@ -50,7 +50,7 @@
         - Every time a microservice boots up it will register with naming server
         - While client is consuming the service they discover the service using naming server
         - include artifact spring-cloud-starter-netflix-eureka-server in pom
-        - Enable Eurekaserver with annotation in application class @EnableEurekaServer
+        - Enable Eureka server with annotation in application class @EnableEurekaServer
         - http://localhost:8761/ 
     - Integrate Eureka Naming server in currency-conversion-service
         - spring-cloud-starter-netflix-eureka-client artifact in the pom
@@ -62,3 +62,37 @@
         - steps are similar to above one
     - Next step remove the hard coding of ribbon server list from properties file and try using naming server
         - remove the hard coding of server and eureka.client.service-url.default-zone should take care of load balancing
+    - finally when we access currency-conversion-service , ribbon should take care of the load balancing the request to currency-exchange service
+    - And whenever microservice boots up, it gets registered with eureka naming service
+        
+- API Gateway (Netflix Zuul API gateway)
+    - provides
+        - Authentication and authorization
+        - Rate limits
+        - Fault Tolerant
+        - Service Aggregation
+    - Netflix Zuul API gateway
+    - Setup Zuul API gateway
+        - create new component
+    - zuul-api-gateway-server
+        - @EnableZuulProxy in application class
+        - @EnableDiscoveryClient - this is for eureka naming server
+        - update application.properties with application name, port and eureka default-zone
+        - server.port=8765
+        - Implement logfilter to log the request extends ZuulFilter - Refer class ZuulLogginFilter.java
+        - Intercept the request in Zuul gateway - route all the required service request via the API gateway
+            - need to configure http://localhost:8765/{application-name}/{uri}
+                - application-name as defined in each service application.properties
+                - uri is the path variables 
+                - for example http://localhost:8765/currency-exchange-service/currency-exchange/from/USD/to/INR/
+                - with above url the request specific to exchange-service can be routed via zuul
+            - setting zuul API gateway for all microservice invocation
+                - As of now Currency-conversion-service talks to Currency-exchange-service using FeignClient
+                - Now change the FeignClient parameter to point to Zuul API Gateway in the proxy class
+                - and prepend the @GetMapping with application-name to match with ZUUL API request
+                - with this Currency-conversion interaction with currency-exchange is via api gateway
+            - set up zuul api for currency-conversion-service
+                - need to follow pattern http://localhost:8765/{application-name}/{uri}
+                - for example http://localhost:8765/currency-conversion-service/currency-converter-feign/from/USD/to/INR/quantity/1000
+                - so by invoking parent service with zuul api gateway should invoke internal service
+        
