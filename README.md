@@ -96,3 +96,18 @@
                 - for example http://localhost:8765/currency-conversion-service/currency-converter-feign/from/USD/to/INR/quantity/1000
                 - so by invoking parent service with zuul api gateway should invoke internal service
         
+- Distributed Tracing (spring cloud sleuth + Zipkin)
+    - spring cloud sleuth
+        - assign unique id to each request like the conversationID, traceable
+    - Zipkin
+        - distributed tracing system
+        - Logs from each component is pushed to mq and sent to zipkin server
+        - Consolidated view for the log
+    - Integrate Sleuth to conversion-service, exchange-service and gateway
+        - artifact spring-cloud-starter-sleuth
+        - added sampler bean to application class in the service required
+        - in log you should see a unique id which can be used to trace the log throughout the lifecycle of the request
+        - All this logs can be pushed to the central zipkin server to consolidate the logs
+    - Zipkin server
+        - RabbitMQ to push data to zipkin server
+    
