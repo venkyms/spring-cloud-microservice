@@ -110,4 +110,15 @@
         - All this logs can be pushed to the central zipkin server to consolidate the logs
     - Zipkin server
         - RabbitMQ to push data to zipkin server
+        - install rabbitMQ in your, needs erlang follow https://www.rabbitmq.com/download.html
+        - download executable version of zipkin and run zipkin locally, you could use container version as well
+            - https://zipkin.io/pages/quickstart
+            - start using java -jar <jar file>
+            - access zipkin via http://localhost:9411/zipkin/
+            - start zipkin with rabbitmq param 
+                - Windows
+                    - SET RABBIT_URI=amqp://localhost
+                      java -jar <jar file>
+                - linux
+                    - RABBIT_URI=amqp://localhost java -jar <jar file>   
     
