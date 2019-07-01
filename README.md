@@ -111,6 +111,7 @@
     - Zipkin server
         - RabbitMQ to push data to zipkin server
         - install rabbitMQ in your, needs erlang follow https://www.rabbitmq.com/download.html
+            - this should start by default as windows server, if not start menu has all start/restart/stop options
         - download executable version of zipkin and run zipkin locally, you could use container version as well
             - https://zipkin.io/pages/quickstart
             - start using java -jar <jar file>
@@ -121,4 +122,7 @@
                       java -jar <jar file>
                 - linux
                     - RABBIT_URI=amqp://localhost java -jar <jar file>   
+             - to integrate zipkin/rabbitmq in all required module
+                - artifact spring-cloud-starter-zipkin, spring-rabbit
+                - this should autoconfigure
     
