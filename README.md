@@ -125,4 +125,24 @@
              - to integrate zipkin/rabbitmq in all required module
                 - artifact spring-cloud-starter-zipkin, spring-rabbit
                 - this should autoconfigure
-    
+
+- Refresh properties change without restarting server - limits service here
+    - Update the property in corresponding local git properties, commit, in this case limit-service-int.properties
+    - Enable actuator/management url's in properties file (default file, limits-service.properties)
+        - management.endpoints.web.exposure.include=*
+    - can be done using POST request to http://localhost:8080/actuator/refresh , this will refresh the values
+        - in this case if you have multiple instance for eg. one in 8080 another in 8081,of limits-service then you need to refresh with separate calls.
+    - Spring cloud bus
+        - to avoid individual refresh call and to combine the refresh of all instance of service spring cloud bus can be used
+        - rabbitmq can be used for this purpose
+        - And dependency in spring-config-server and limit-service
+            - artifact spring-cloud-starter-bus-amqp, this uses bus-rabbitmq
+            - management.endpoints.web.exposure.include=* in bootstrap.properties
+        - start the server
+        - change the values in limit-service-int.properties
+        - refresh the data via cloud-bus
+            - while starting service with cloud-bus dependency , each of the service will register with cloud-bus
+            - start rabbitmq
+            - http://localhost:8080/actuator/bus-refresh
+            - once a refresh is triggered to a instance, cloud-bus will generate a update event to all other instance.
+            - this will refresh all instance
