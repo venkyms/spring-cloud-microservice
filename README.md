@@ -145,4 +145,10 @@
             - start rabbitmq
             - http://localhost:8080/actuator/bus-refresh
             - once a refresh is triggered to a instance, cloud-bus will generate a update event to all other instance.
-            - this will refresh all instance
+            - this will refresh all 
+- Fault Tolerance with Hystrix - limits-service
+    - spring-cloud-starter-netflix-hystrix artifact in limits-service (not required)
+    - @EnableHystrix in LimitsServiceApplication class, this will enable fault tolerance for the service
+    - in controller class use @HystrixCommand(fallbackMethod="fallbackRetrieveConfigurations")
+    - here fallback method provides a default value if there is an issue for eg. config server is down
+    - simulation url http://localhost:8080/fault-tolerance-example
